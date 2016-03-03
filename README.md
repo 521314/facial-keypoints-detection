@@ -30,7 +30,7 @@ Some other parameter combinations are not listed here. Some things to pay attent
 * Large batch size will generate more stable result, but large batch size will consume more memory   
 * Learning rate decay rate should not be too small, or the step will shrink too fast, and it's hard for the loss to get to minimum value   
 
-Now the final score is not good, a lot can be down to promote it, like train one model for each keypoint, deal with null value, and flip the image   
+Now the final score is not very good, a lot can be down to promote it, like train one model for each keypoint, deal with null value, and flip the image   
 
 Welcome to communicate
 shi.dou8@gmail.com
