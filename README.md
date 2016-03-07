@@ -30,7 +30,11 @@ Some other parameter combinations are not listed here. Some things to pay attent
 * Large batch size will generate more stable result, but large batch size will consume more memory   
 * Learning rate decay rate should not be too small, or the step will shrink too fast, and it's hard for the loss to get to minimum value   
 
-Now the final score is not very good, a lot can be down to promote it, like train one model for each keypoint, deal with null value, and flip the image   
+Now the final score is not very good, a lot can be down to promote it, like training one model for each keypoint, dealing with null value, and flipping the image.    
+_____________________
+
+I also use skflow to reimplement this model. Skflow is a scikit-learn fit/predict style interface of tensorflow, and is easy to use.  You can install it using pip:    
+pip install git+git://github.com/tensorflow/skflow.git   
 
 Welcome to communicate
 shi.dou8@gmail.com
