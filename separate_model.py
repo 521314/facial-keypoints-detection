@@ -60,27 +60,33 @@ columns = ()
 
 for setting in SPECIALIST_SETTINGS:
     print time.strftime('%Y-%m-%d %H:%M:%S')
+    sys.stdout.flush()
     cols = setting['columns']
     flip_indices = setting['flip_indices']
     print(cols)
+    sys.stdout.flush()
     columns += cols
     train_data, train_labels = extract_train_data(train_dataframe, cols=cols, flip_indices=flip_indices)
     train_data, validation_data, train_labels, validation_labels = \
         cross_validation.train_test_split(train_data, train_labels, test_size=0.05, random_state=SEED)
 
-    estimator = skflow.TensorFlowEstimator(model_fn=cnn_model, n_classes=0, batch_size=BATCH_SIZE,
+    estimator = skflow.TensorFlowEstimator(model_fn=cnn_model, n_classes=0, batch_size=BATCH_SIZE, num_cores=2,
                                                  early_stopping_rounds=EARLY_STOP_PATIENCE, steps=NUM_EPOCHS, optimizer='Adam',
                                                  learning_rate=exp_decay, continue_training=False)
     estimator.fit(train_data, train_labels, logdir='log')
+    del train_data, train_labels
+    gc.collect()
     score = metrics.mean_squared_error(validation_labels, estimator.predict(validation_data))
+    del validation_data, validation_labels
+    gc.collect()
     print('validation mean squared error: {0:f}'.format(score))
     sys.stdout.flush()
     test_labels = estimator.predict(test_data, batch_size=EVAL_BATCH_SIZE)
-    predicted_labels = np.hstack([predicted_labels, test_labels])
-    del estimator, train_data, train_labels, test_data, test_labels
+    del estimator
     gc.collect()
+    predicted_labels = np.hstack([predicted_labels, test_labels])
     print time.strftime('%Y-%m-%d %H:%M:%S')
-    time.sleep(10)
+    sys.stdout.flush()
 
 
 create_submission(predicted_labels, columns)
