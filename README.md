@@ -35,6 +35,9 @@ _____________________
 
 I also use skflow to reimplement this model. Skflow is a scikit-learn fit/predict style interface of tensorflow, and is easy to use.  You can install it using pip:    
 pip install git+git://github.com/tensorflow/skflow.git   
+Skflow can simplify your code, but is not as flexible as tensorflow. I use skflow to reimplement Daniel Nouri's model, and the prediction result is like this:    
+
+![this](https://github.com/saber1988/facial-keypoints-detection/blob/master/facial-keypoints.png) 
 
 Welcome to communicate
 shi.dou8@gmail.com
